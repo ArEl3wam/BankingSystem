@@ -1,0 +1,11 @@
+# Ignore build directory
+/build/
+
+# Ignore CMake cache and generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json  # Optional: If you prefer to generate it locally
