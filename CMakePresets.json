@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "cmakeMinimumRequired": {
+      "major": 3,
+      "minor": 14,
+      "patch": 0
+    },
+    "configurePresets": [
+      {
+        "name": "dev",
+        "displayName": "Development",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Debug"
+        }
+      }
+    ]
+  }

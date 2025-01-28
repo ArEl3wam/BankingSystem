@@ -11,9 +11,8 @@ clean_build() {
 build_project() {
     echo "Building project..."
     mkdir -p build
-    cd build
-    cmake -G "Ninja" ..
-    cmake --build .
+    cmake -G "Ninja" -B build -S .
+    cmake --build ./build
 }
 
 # Check for command-line arguments
