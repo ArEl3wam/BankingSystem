@@ -1,6 +1,7 @@
 # Create a library for cli
 add_library(cli STATIC
     cli_state.cpp
+    cli_manager.cpp
 )
 
 # Include headers
