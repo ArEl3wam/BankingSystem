@@ -1,0 +1,15 @@
+{    
+    "version": "0.2.0",
+    "configurations": 
+    [
+        {
+            "name": "debugging bank",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bank-system.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            }
+    
+    ]
+}

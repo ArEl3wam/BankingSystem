@@ -5,77 +5,128 @@
 #include <string>
 
 class CliManager;
-class CliStateInterface {
+class CliBaseState: public std::enable_shared_from_this<CliBaseState>
+{
 protected:
   std::shared_ptr<CliManager> cliManager;
+  std::shared_ptr<CliBaseState> parentState;
 
 public:
-  CliStateInterface();
+  CliBaseState(std::shared_ptr<CliBaseState> parentState)
+      : parentState(parentState)
+  {
+  }
+  void setManager(std::shared_ptr<CliManager> manager) { cliManager = manager; }
   virtual void onEnter() = 0;
   virtual void handleInput(const std::string &input) = 0;
-  void setManager(std::shared_ptr<CliManager> manager) { cliManager = manager; }
-  virtual ~CliStateInterface() = default;
+  virtual ~CliBaseState() = default;
+  friend class CliManager;
 };
 
-class MainMenuState : public CliStateInterface {
+class MainMenuState : public CliBaseState
+{
 public:
-  MainMenuState() = default;
+  MainMenuState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~MainMenuState() = default;
 };
 
-class ExitState : public CliStateInterface {
+class ExitState : public CliBaseState
+{
 public:
-  ExitState() = default;
+  ExitState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~ExitState() = default;
 };
 
-class LoginState : public CliStateInterface {
+class LoginState : public CliBaseState
+{
+  enum class CurrentState
+  {
+    WAITING_USERNAME,
+    WAITING_PASSWORD,
+    LOGGED_IN
+  } currentState;
+  std::string username;
+  std::string password;
+  void handleUsername(const std::string &input);
+  void handlePassword(const std::string &input);
+
 public:
-  LoginState() = default;
+  LoginState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState), currentState(CurrentState::WAITING_USERNAME),
+        username(""), password("")
+  {
+    currentState = CurrentState::WAITING_USERNAME;
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~LoginState() = default;
 };
 
-class AddNewUserState : public CliStateInterface {
+class AddNewUserState : public CliBaseState
+{
 public:
-  AddNewUserState() = default;
+  AddNewUserState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~AddNewUserState() = default;
 };
 
-class UserMenuState : public CliStateInterface {
+class UserMenuState : public CliBaseState
+{
 public:
-  UserMenuState() = default;
+  UserMenuState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~UserMenuState() = default;
 };
 
-class ViewAccountsState : public CliStateInterface {
+class ViewAccountsState : public CliBaseState
+{
 public:
-  ViewAccountsState() = default;
+  ViewAccountsState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~ViewAccountsState() = default;
 };
 
-class DepositState : public CliStateInterface {
+class DepositState : public CliBaseState
+{
 public:
-  DepositState() = default;
+  DepositState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~DepositState() = default;
 };
 
-class WithdrawState : public CliStateInterface {
+class WithdrawState : public CliBaseState
+{
 public:
-  WithdrawState() = default;
+  WithdrawState(std::shared_ptr<CliBaseState> parentState)
+      : CliBaseState(parentState)
+  {
+  }
   void onEnter() override;
   void handleInput(const std::string &input) override;
   virtual ~WithdrawState() = default;

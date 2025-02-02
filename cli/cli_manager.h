@@ -1,19 +1,20 @@
 #ifndef _CLI_PRINTER_H_
 #define _CLI_PRINTER_H_
-#include <memory>
-#include <stack>
 #include "cli_state.h"
+#include <memory>
 
-// state context
-class CliManager {
+class CliManager: public std::enable_shared_from_this<CliManager> 
+{
 private:
-  std::stack<std::unique_ptr<CliStateInterface>> stateStack;
-  std::unique_ptr<CliStateInterface> currentState;
+  std::shared_ptr<CliBaseState> currentState;
+  void printBackToPreviousMessage();
 
 public:
-  CliManager(std::unique_ptr<CliStateInterface> state) : currentState(std::move(state)) {}
-  
-  void transitionToState(std::unique_ptr<CliStateInterface> state);
+  CliManager() = default;
+
+  void transitionToState(std::shared_ptr<CliBaseState> state);
+  void goToPreviousState();
+  void handleInput(const std::string &input);
 
   ~CliManager() = default;
 };
