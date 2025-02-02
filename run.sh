@@ -11,7 +11,7 @@ clean_build() {
 build_project() {
     echo "Building project..."
     mkdir -p build
-    cmake -G Ninja -B build -S . -DCMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" -DCMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang++.exe" -DCMAKE_CXX_FLAGS="-target x86_64-w64-mingw32"  -DCMAKE_BUILD_TYPE=Release
+    cmake -G Ninja -B build -S .
     cmake --build ./build
 }
 

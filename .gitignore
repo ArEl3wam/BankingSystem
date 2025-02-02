@@ -9,3 +9,4 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json  # Optional: If you prefer to generate it locally
+bank.db

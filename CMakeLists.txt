@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(BankingSystem LANGUAGES CXX)
+project(BankingSystem LANGUAGES C CXX)
+
+find_package(Threads REQUIRED)
 
 # Set default build type to Debug if not specified
 if(NOT CMAKE_BUILD_TYPE)
@@ -29,6 +31,7 @@ endif()
 add_subdirectory(cli)
 add_subdirectory(core_model)
 add_subdirectory(common)
+add_subdirectory(lib)
 
 # Executable target
 add_executable(bank-system
@@ -36,11 +39,12 @@ add_executable(bank-system
 )
 
 # Link libraries from subdirectories
-target_link_libraries(bank-system PRIVATE cli core_model common)
+target_link_libraries(bank-system PRIVATE cli core_model common lib)
 
 # Include directories for headers
 target_include_directories(bank-system PRIVATE
     cli
     core_model
     common
+    lib
 )
