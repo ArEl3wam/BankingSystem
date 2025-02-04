@@ -1,9 +1,9 @@
-#ifndef _CLI_PRINTER_H_
-#define _CLI_PRINTER_H_
+#pragma once
+
 #include "cli_state.h"
 #include <memory>
 
-class CliManager: public std::enable_shared_from_this<CliManager> 
+class CliManager : public std::enable_shared_from_this<CliManager>
 {
 private:
   std::shared_ptr<CliBaseState> currentState;
@@ -18,5 +18,3 @@ public:
 
   ~CliManager() = default;
 };
-
-#endif // _CLI_PRINTER_H_

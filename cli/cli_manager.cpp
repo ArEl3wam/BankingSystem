@@ -1,8 +1,11 @@
 #include "cli_manager.h"
+#include <iostream>
+#include <string>
 
 void CliManager::printBackToPreviousMessage()
 {
-  fprintf(stdout, "Press 'b' to go back.\n");
+  // std::cout << "\x1B[2J";
+  std::cout << "Press 'b' to go back.\n";
 }
 
 void CliManager::transitionToState(std::shared_ptr<CliBaseState> state)

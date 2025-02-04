@@ -11,7 +11,7 @@ clean_build() {
 build_project() {
     echo "Building project..."
     mkdir -p build
-    cmake -G Ninja -B build -S .
+    cmake -G Ninja -B build -S . -DCMAKE_BUILD_TYPE=Debug
     cmake --build ./build
 }
 

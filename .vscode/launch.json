@@ -6,7 +6,7 @@
             "name": "debugging bank",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bank-system.exe",
+            "program": "${workspaceFolder}/build/bank-system",
             "args": [],
             "cwd": "${workspaceFolder}",
             }

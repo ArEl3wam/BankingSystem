@@ -32,6 +32,7 @@ add_subdirectory(cli)
 add_subdirectory(core_model)
 add_subdirectory(common)
 add_subdirectory(lib)
+add_subdirectory(database)
 
 # Executable target
 add_executable(bank-system
@@ -39,7 +40,7 @@ add_executable(bank-system
 )
 
 # Link libraries from subdirectories
-target_link_libraries(bank-system PRIVATE cli core_model common lib)
+target_link_libraries(bank-system PRIVATE cli core_model common lib database)
 
 # Include directories for headers
 target_include_directories(bank-system PRIVATE
@@ -47,4 +48,5 @@ target_include_directories(bank-system PRIVATE
     core_model
     common
     lib
+    database
 )
