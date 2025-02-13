@@ -91,7 +91,7 @@ void LoginState::handleInput(const std::string &input)
   {
     password = input;
     bool status;
-    auto database_interface = SQLiteDatabaseInterface();
+    auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
     status = database_interface.getUser(username, password, userId);
     if (!status)
     {
@@ -225,7 +225,7 @@ void AddNewUserState::handleInput(const std::string &input)
   {
     password = input;
     bool status;
-    auto database_interface = SQLiteDatabaseInterface();
+    auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
     status = database_interface.addUser(nickname, username, password, userId);
     if (status)
     {

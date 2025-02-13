@@ -4,7 +4,7 @@
 
 User::User(int id)
 {
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   UserData userData{};
   database_interface.getUserData(id, userData);
   dId = userData.id;
@@ -27,7 +27,7 @@ User::User(int id)
 
 void User::addNewAccount(double balance, AccountType accountType)
 {
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   std::string accNumber =
       std::to_string(dId) + std::to_string(dAccounts.size());
   if (accountType == AccountType::SAVING)
@@ -45,7 +45,7 @@ void User::addNewAccount(double balance, AccountType accountType)
 
 bool User::deposit(const std::string &accNumber, double amount)
 {
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   bool status = database_interface.deposit(accNumber, amount);
 
   for (auto &acc : dAccounts)
@@ -62,7 +62,7 @@ bool User::deposit(const std::string &accNumber, double amount)
 
 bool User::withdraw(const std::string &accNumber, double amount)
 {
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   bool status = database_interface.withdraw(accNumber, amount);
   for(auto &acc : dAccounts)
   {
@@ -78,7 +78,7 @@ bool User::withdraw(const std::string &accNumber, double amount)
 bool User::transferMoney(const std::string &sourceAcc,
                          const std::string &destAcc, double amount)
 {
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   bool status = database_interface.transferMoney(sourceAcc, destAcc, amount);
   for(auto &acc : dAccounts)
   {
@@ -127,7 +127,7 @@ void User::print() const
 void User::printTransactions() const
 {
   std::vector<TransactionData> transactions{};
-  auto database_interface = SQLiteDatabaseInterface();
+  auto& database_interface = Singleton<SQLiteDatabaseInterface>::getInstance();
   database_interface.getTransactionHistory(dId, transactions);
 
   for (const auto &transcation : transactions)
